@@ -1,0 +1,289 @@
+    1  ;STORING THE CANDIDATE AND COUNTER DATA
+    1                           ORG 2000H
+    2  2000   3E20              MVI A, 20H       	
+    3  2002   322010            STA 1020H           	
+    4  2005   3E10              MVI A, 10H       	
+    5  2007   322210            STA 1022H           	
+    6  200A   3E08              MVI A, 08H       	
+    7  200C   322410            STA 1024H           	
+    8  200F   3E04              MVI A, 04H       	
+    9  2011   322610            STA 1026H           	
+   10  2014   3E02              MVI A, 02H       	
+   11  2016   322810            STA 1028H           	
+   12  2019   3E01              MVI A, 01H       	
+   13  201B   322A10            STA 102AH           	
+   14  201E   2600              MVI H, 00H       	
+   15  2020   2E00              MVI L, 00H       	
+   16  2022   223010            SHLD 1030H           	
+   17  2025   2600              MVI H, 00H       	
+   18  2027   2E00              MVI L, 00H       	
+   19  2029   223210            SHLD 1032H           	
+   20  202C   2600              MVI H, 00H       	
+   21  202E   2E00              MVI L, 00H       	
+   22  2030   223410            SHLD 1034H           	
+   23  2033   2600              MVI H, 00H       	
+   24  2035   2E00              MVI L, 00H       	
+   25  2037   223610            SHLD 1036H           	
+   26  203A   2600              MVI H, 00H       	
+   27  203C   2E00              MVI L, 00H       	
+   28  203E   223810            SHLD 1038H           	
+   29  2041   2600              MVI H, 00H       	
+   30  2043   2E00              MVI L, 00H       	
+   31  2045   223A10            SHLD 103AH           	
+   32  2048   1601       LOOP:  MVI D, 01H       	;INPUT FOR THE ELECTION OFFICER
+   33  204A   DB01              IN 01H           	
+   34  204C   BA                CMP D           	
+   35  204D   CA5320            JZ START           	
+   36  2050   C2E720            JNZ OVER           	
+   37  2053   DB02      START:  IN 02H           	;INPUT FOR THE VOTERS
+   38  2055   1600              MVI D, 00H       	
+   39  2057   BA                CMP D           	
+   40  2058   CA5320            JZ START           	
+   41  205B   C25E20            JNZ LABEL           	
+   42  205E   5F        LABEL:  MOV E, A         	
+   43  205F   2610              MVI H, 10H       	
+   44  2061   2E20              MVI L, 20H       	
+   45  2063   7E                MOV A, M         	
+   46  2064   BB                CMP E           	
+   47  2065   3A3010            LDA 1030H           	
+   48  2068   6F                MOV L, A         	
+   49  2069   3A3110            LDA 1031H           	
+   50  206C   67                MOV H, A         	
+   51  206D   CCDB20            CZ INCR           	
+   52  2070   223010            SHLD 1030H           	
+   53  2073   2610              MVI H, 10H       	
+   54  2075   2E22              MVI L, 22H       	
+   55  2077   7E                MOV A, M         	
+   56  2078   BB                CMP E           	
+   57  2079   3A3210            LDA 1032H           	
+   58  207C   6F                MOV L, A         	
+   59  207D   3A3310            LDA 1033H           	
+   60  2080   67                MOV H, A         	
+   61  2081   CCDB20            CZ INCR           	
+   62  2084   223210            SHLD 1032H           	
+   63  2087   2610              MVI H, 10H       	
+   64  2089   2E24              MVI L, 24H       	
+   65  208B   7E                MOV A, M         	
+   66  208C   BB                CMP E           	
+   67  208D   3A3410            LDA 1034H           	
+   68  2090   6F                MOV L, A         	
+   69  2091   3A3510            LDA 1035H           	
+   70  2094   67                MOV H, A         	
+   71  2095   CCDB20            CZ INCR           	
+   72  2098   223410            SHLD 1034H           	
+   73  209B   2610              MVI H, 10H       	
+   74  209D   2E26              MVI L, 26H       	
+   75  209F   7E                MOV A, M         	
+   76  20A0   BB                CMP E           	
+   77  20A1   3A3610            LDA 1036H           	
+   78  20A4   6F                MOV L, A         	
+   79  20A5   3A3710            LDA 1037H           	
+   80  20A8   67                MOV H, A         	
+   81  20A9   CCDB20            CZ INCR           	
+   82  20AC   223610            SHLD 1036H           	
+   83  20AF   2610              MVI H, 10H       	
+   84  20B1   2E28              MVI L, 28H       	
+   85  20B3   7E                MOV A, M         	
+   86  20B4   BB                CMP E           	
+   87  20B5   3A3810            LDA 1038H           	
+   88  20B8   6F                MOV L, A         	
+   89  20B9   3A3910            LDA 1039H           	
+   90  20BC   67                MOV H, A         	
+   91  20BD   CCDB20            CZ INCR           	
+   92  20C0   223810            SHLD 1038H           	
+   93  20C3   2610              MVI H, 10H       	
+   94  20C5   2E2A              MVI L, 2AH       	
+   95  20C7   7E                MOV A, M         	
+   96  20C8   BB                CMP E           	
+   97  20C9   3A3A10            LDA 103AH           	
+   98  20CC   6F                MOV L, A         	
+   99  20CD   3A3B10            LDA 103BH           	
+  100  20D0   67                MOV H, A         	
+  101  20D1   CCDB20            CZ INCR           	
+  102  20D4   223A10            SHLD 103AH           	
+  103  20D7   C34820            JMP LOOP           	
+  104  20DA   76                HLT            	
+  105  20DB   0600       INCR:  MVI B, 00H       	;ADD 0001 TO COUNTER WITH DECIMAL ADJUSTMENT
+  106  20DD   0E01              MVI C, 01H       	
+  107  20DF   09                DAD B           	
+  108  20E0   7C                MOV A, H         	
+  109  20E1   27                DAA            	
+  110  20E2   67                MOV H, A         	
+  111  20E3   7D                MOV A, L         	
+  112  20E4   27                DAA            	
+  113  20E5   6F                MOV L, A         	
+  114  20E6   C9                RET            	
+  115  20E7   1602       OVER:  MVI D, 02H       	;INPUT FOR CLOSING THE ELECTION PROCESS
+  116  20E9   BA                CMP D           	
+  117  20EA   CCF020            CZ CLOSE           	
+  118  20ED   C44820            CNZ LOOP           	
+  119  20F0   DB03      CLOSE:  IN 03H           	;INPUT FOR THE COUNTING OFFICER
+  120  20F2   CDAA21            CALL INIT           	;LCD INITIALISED
+  121  20F5   1603              MVI D, 03H       	
+  122  20F7   BA                CMP D           	
+  123  20F8   C4F020            CNZ CLOSE           	
+  124  20FB   CCFE20            CZ NEW           	
+  125  20FE   3E80        NEW:  MVI A, 80H       	
+  126  2100   CDD421            CALL CMD           	
+  127  2103   3E87              MVI A, 87H       	
+  128  2105   CDD421            CALL CMD           	
+  129  2108   21G2MS            LXI H, MSG2      	;POINTS TO MSG1
+  130  210B   060A              MVI B, 0AH       	;SET UP COUNTER FOR 10 CHAR
+  131  210D   CD1D22            CALL NEXT           	
+  132  2110   DB04              IN 04H           	;FOR DISPLAYING THE CANDIDATE'S COUNTER ON LCD              
+  133  2112   5F                MOV E, A         	
+  134  2113   CDF521            CALL DAT           	
+  135  2116   3E00              MVI A, 00H       	
+  136  2118   BB                CMP E           	
+  137  2119   CAFE20            JZ NEW           	
+  138  211C   3E09              MVI A, 09H       	
+  139  211E   BB                CMP E           	
+  140  211F   CCA921            CZ HALT           	
+  141  2122   3E01              MVI A, 01H       	
+  142  2124   BB                CMP E           	
+  143  2125   0610              MVI B, 10H       	
+  144  2127   0E30              MVI C, 30H       	
+  145  2129   CC8D21            CZ DISPLAY2           	
+  146  212C   0600              MVI B, 0H        	
+  147  212E   0E31              MVI C, 31H       	
+  148  2130   CC8821            CZ DISPLAY1           	
+  149  2133   3E02              MVI A, 02H       	
+  150  2135   BB                CMP E           	
+  151  2136   0610              MVI B, 10H       	
+  152  2138   0E32              MVI C, 32H       	
+  153  213A   CC8D21            CZ DISPLAY2           	
+  154  213D   0610              MVI B, 10H       	
+  155  213F   0E33              MVI C, 33H       	
+  156  2141   CC8821            CZ DISPLAY1           	
+  157  2144   3E03              MVI A, 03H       	
+  158  2146   BB                CMP E           	
+  159  2147   0610              MVI B, 10H       	
+  160  2149   0E34              MVI C, 34H       	
+  161  214B   CC8D21            CZ DISPLAY2           	
+  162  214E   0610              MVI B, 10H       	
+  163  2150   0E35              MVI C, 35H       	
+  164  2152   CC8821            CZ DISPLAY1           	
+  165  2155   3E04              MVI A, 04H       	
+  166  2157   BB                CMP E           	
+  167  2158   0610              MVI B, 10H       	
+  168  215A   0E36              MVI C, 36H       	
+  169  215C   CC8D21            CZ DISPLAY2           	
+  170  215F   0610              MVI B, 10H       	
+  171  2161   0E37              MVI C, 37H       	
+  172  2163   CC8821            CZ DISPLAY1           	
+  173  2166   3E05              MVI A, 05H       	
+  174  2168   BB                CMP E           	
+  175  2169   0610              MVI B, 10H       	
+  176  216B   0E38              MVI C, 38H       	
+  177  216D   CC8D21            CZ DISPLAY2           	
+  178  2170   0610              MVI B, 10H       	
+  179  2172   0E39              MVI C, 39H       	
+  180  2174   CC8821            CZ DISPLAY1           	
+  181  2177   3E06              MVI A, 06H       	
+  182  2179   BB                CMP E           	
+  183  217A   0610              MVI B, 10H       	
+  184  217C   0E3A              MVI C, 3AH       	
+  185  217E   CC8D21            CZ DISPLAY2           	
+  186  2181   0610              MVI B, 10H       	
+  187  2183   0E3B              MVI C, 3BH       	
+  188  2185   CC8821            CZ DISPLAY1           	
+  189  2188   0A     DISPLAY1:  LDAX B           	
+  190  2189   CDF521            CALL DAT           	
+  191  218C   C9                RET            	
+  192  218D   3EC0   DISPLAY2:  MVI A, C0H       	
+  193  218F   CDD421            CALL CMD           	
+  194  2192   3E87              MVI A, 87H       	
+  195  2194   CDD421            CALL CMD           	
+  196  2197   21G2MS            LXI H, MSG2      	;POINTS TO MSG1
+  197  219A   0608              MVI B, 08H       	;SET UP COUNTER FOR 8 CHAR
+  198  219C   CD1D22            CALL NEXT           	
+  199  219F   0A                LDAX B           	
+  200  21A0   CDF521            CALL DAT           	
+  201  21A3   CD8821            CALL DISPLAY1           	
+  202  21A6   C3FE20            JMP NEW           	
+  203  21A9   76         HALT:  HLT            	
+  204  21AA   3E80       INIT:  MVI A, 80H       	;FOR SETTING PORT A AS OUTPUT
+  205  21AC     CNTRL            OUT CNTRL           	;8255 CONTROL PORT
+  206  21AE   3E00              MVI A, 00H       	;EN signal low
+  207  21B0     CNTRL            OUT CNTRL           	
+  208  21B2   3E30              MVI A, 30H       	;FOR POWER CODITION FOR LCD
+  209  21B4   47                MOV B, A         	
+  210  21B5   CD0B22            CALL OUTPUT           	
+  211  21B8   CDD421            CALL CMD           	
+  212  21BB   3E38              MVI A, 38H       	;FOR 8 BIT,2 LINES
+  213  21BD   CDD421            CALL CMD           	
+  214  21C0   3E08              MVI A, 08H       	;FOR DISPLAY OFF
+  215  21C2   CDD421            CALL CMD           	
+  216  21C5   3E01              MVI A, 01H       	;FOR CLEAR DISPLAY
+  217  21C7   CDD421            CALL CMD           	
+  218  21CA   3E06              MVI A, 06H       	;FOR CURSOR INCREASING
+  219  21CC   CDD421            CALL CMD           	
+  220  21CF   3E0E              MVI A, 0EH       	;FOR DISPLAY,CURSOR AND BLINK
+  221  21D1   CDD421            CALL CMD           	
+  222  21D4   47          CMD:  MOV B, A         	;STORE IT IN B
+  223  21D5   CDD821            CALL SEVEN           	
+  224  21D8   3E90      SEVEN:  MVI A, 90H       	;CHECK THE 7TH PIN
+  225  21DA     CNTRL            OUT CNTRL           	
+  226  21DC   3E02              MVI A, 02H       	;SELECT COMMAND REGISTER
+  227  21DE     CNTRL            OUT CNTRL           	
+  228  21E0   3E03              MVI A, 03H       	
+  229  21E2     CNTRL            OUT CNTRL           	
+  230  21E4   3E01       READ:  MVI A, 01H       	
+  231  21E6     CNTRL            OUT CNTRL           	
+  232  21E8     PORTA            IN PORTA           	;READ PORT A AND CHECK 7TH BIT
+  233  21EA   3E00              MVI A, 00H       	;SET EN LOW
+  234  21EC   07                RLC            	
+  235  21ED   DAE421            JC READ           	;IF 7TH BIT IS 1,LOOP
+  236  21F0   3E80              MVI A, 80H       	;SET PORTA AS OUTPUT PORT
+  237  21F2     CNTRL            OUT CNTRL           	
+  238  21F4   C9                RET            	
+  239  21F5   47          DAT:  MOV B, A         	;SAVE IN B
+  240  21F6   CDD821            CALL SEVEN           	;CHECK FOR 7TH BIT
+  241  21F9   3E03              MVI A, 03H       	;WRITE ENABLE
+  242  21FB     CNTRL            OUT CNTRL           	
+  243  21FD   3E04              MVI A, 04H       	;SELECT DATA REGISTER
+  244  21FF     CNTRL            OUT CNTRL           	
+  245  2201   3E01              MVI A, 01H       	;SET EN
+  246  2203     CNTRL            OUT CNTRL           	
+  247  2205   78                MOV A, B         	;GET DATA BYTE
+  248  2206     PORTA            OUT PORTA           	
+  249  2208   3E00              MVI A, 00H       	;RESET EN
+  250  220A   C9                RET            	
+  251  220B   3E02     OUTPUT:  MVI A, 02H       	;SELECT COMMAND REGISTER
+  252  220D     CNTRL            OUT CNTRL           	
+  253  220F   3E04              MVI A, 04H       	;enable write
+  254  2211     CNTRL            OUT CNTRL           	
+  255  2213   3E01              MVI A, 01H       	;EN HIGH
+  256  2215     CNTRL            OUT CNTRL           	
+  257  2217   78                MOV A, B         	;GET CODE
+  258  2218     PORTA            OUT PORTA           	;SEND DATA ON BUS
+  259  221A   3E00              MVI A, 00H       	;EN LOW
+  260  221C   C9                RET            	
+  261  221D   7E         NEXT:  MOV A, M         	;GET A CHAR
+  262  221E   CDF521            CALL DAT           	
+  263  2221   23                INX H           	
+  264  2222   05                DCR B           	
+  265  2223   C21D22            JNZ NEXT           	
+  266  2226   C9                RET            	
+
+-------------------------------END-------------------------------
+
+ 2048  LOOP  
+ 2053  START 
+ 205E  LABEL 
+ 20DB  INCR  
+ 20E7  OVER  
+ 20F0  CLOSE 
+ 20FE  NEW   
+ 2188  DISPLAY1
+ 218D  DISPLAY2
+ 21A9  HALT  
+ 21AA  INIT  
+ 21D4  CMD   
+ 21D8  SEVEN 
+ 21E4  READ  
+ 21F5  DAT   
+ 220B  OUTPUT
+ 221D  NEXT  
+ 2226  MSG1  
+ 2226  MSG2  
